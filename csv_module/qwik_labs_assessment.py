@@ -18,7 +18,18 @@ path = os.getcwd()
 dir_arr = path.split("/")
 dir_arr.pop()
 new_dir = "/".join(dir_arr) + "/data"
-employee_list = read_employees(new_dir + "/employees.csv")
+
+file_list = []
+for name in os.listdir(new_dir):
+    fullname = os.path.join(new_dir, name)
+    if os.path.isdir(fullname):
+        continue
+    else:
+        if name.endswith(".csv"):
+            file_list.append(name)
+
+for file in file_list:
+    employee_list = read_employees(new_dir + "/" + file)
 # print(employee_list)
 
 def process_data(employee_list):
