@@ -2,9 +2,11 @@
 
 # Google IT Automation with Python - Regular Expressions, Practice Quiz
 
+# We're working with a CSV file, which contains employlee information. Each record has a name field, followed by a phone number field, and a role field. The phone number field contains U.S. phone numbers, and needs to be modified to the international format, with "+1-" in front of the phone number. Fill in the regular expression, using groups, to use the transform_record function to do that.
+
 import re
 def transform_record(record):
-  new_record = re.sub(r"([\w+\s\w*]),([\d]+-[\d]+-?[\d]?),([\w+\s\w*])", r"\11+-\2\3", record)
+  new_record = re.sub(r"([\w+\s\w*]),([\d]*-?[\d]*-?[\d]*),([\w+\s\w*])", r"\1,+1-\2,\3", record)
   return new_record
 
 print(transform_record("Sabrina Green,802-867-5309,System Administrator"))
