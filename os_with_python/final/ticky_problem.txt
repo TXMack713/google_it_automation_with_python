@@ -1,0 +1,9 @@
+```Google IT Automation with Python - Interacting with the OS with Python, Final Project```
+
+```Problem Statement```
+* - Ticky, a ticketing system that generates log lines
+1 - Generate a report file based on the ranking system of the errors, sorted by most common to the least common. The usernames of the users that generated the error messages is not relevant for this report.
+2 - Usage statistics for the service, list of all users for the service including how many info messages and error messages they've generated. The report should be sorted by username.
+3 - Write separate scripts to conduct each task, then a master script to run each report script.
+4 - Use Python dictionaries to sort and count the number of error messages and the number of messages generated per user
+5 - Use a Bash script to convert the CSV files to HTML files

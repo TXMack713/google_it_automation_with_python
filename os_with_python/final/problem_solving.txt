@@ -1,0 +1,10 @@
+```The Four Steps to Solving Problems with Code```
+1. Understand the problem statement
+    Think through the ask to understand what is truly being requested.
+2. Research:
+    Check to see if the problem has been solved before.
+3. Plan:
+    Think of what steps and what answers and problems might arise in solving the main problem.
+4. Code:
+    Implement the plan with code.
+
