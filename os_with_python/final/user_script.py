@@ -18,17 +18,20 @@ filename = sys.argv[1]
 with open(filename, "r") as f:
     lines = f.readlines()
     for line in lines:
-        regex = r" \(([\w]*.?[\w]*)\)"
+        regex = r" \(([\w]*.?[\w]*\))"
         result = re.search(regex, line)
         if result is not None:
-            # print(result.group().strip())
-            # name_regex = r"\(([\w*])\)"
-            # name = re.search(name_regex, result.group().strip())
             user_set.add(result.group().strip())
     for user in user_set:
-        user_list.append(user)
-
+        # print("User:")
+        # print(user)
+        name_arr = [x for x in user]
+        # print(name_arr)
+        name_arr.pop(0)
+        name_arr.pop()
+        user_list.append("".join(name_arr))
     user_list.sort()
+
     for user in user_list:
         info_dict = {"INFO": 0}
         error_dict = {"ERROR": 0}
@@ -39,18 +42,16 @@ with open(filename, "r") as f:
                 this_line =info_result.group().strip()
                 if this_line.find(user) != -1:
                     info_dict["INFO"] = info_dict.get("INFO", 0) + 1
-                    # info_dict[info_result.group().strip()] = info_dict.get(info_result.group().strip(), 0) + 1
             error_regex = r"ERROR[\w\s\W]*\([\w]*.?[\w]*\)"
             error_result = re.search(error_regex, line)
             if error_result is not None:
                 this_line = error_result.group().strip()
                 if this_line.find(user) != -1:
                     error_dict["ERROR"] = error_dict.get("ERROR", 0) + 1
-                    # error_dict[error_result.group().strip()] = error_dict.get(error_result.group().strip(), 0) + 1
         # print(user)
         # print(info_dict)
         # print(error_dict)
-        user_dict[user] = {"INFO" : info_dict['INFO'], "ERROR" : error_dict['ERROR']}
+        user_dict[user] = {"INFO": info_dict['INFO'], "ERROR": error_dict['ERROR']}
 f.close()
 
 print(user_dict)
