@@ -80,6 +80,8 @@ error_stats = sorted(error_dict.items(), key=operator.itemgetter(1), reverse=Tru
 
 error_stats.insert(0, ('Error', 'Count'))
 
+error_stats.pop()
+
 print(error_stats)
 
 with open("error_message.csv", "w") as errors_csv:
