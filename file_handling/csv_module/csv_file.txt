@@ -1,7 +1,0 @@
-Tony T, 123-456-7890, Chairman and Staff Software Developer
-Marie L, 098-765-4321, President and COO
-Liz N, 456-789-0123, VP of Marketing
-Joy B, 789-012-3456, VP of Strategy
-Eddie B, 012-345-6789, VP of Security
-Easy J, 963-852-7410, VP of Personnel
-

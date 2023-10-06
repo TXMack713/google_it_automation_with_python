@@ -34,7 +34,7 @@ def new_directory(directory, filename):
 
   return dir_list
 
-print(new_directory("PythonPrograms", "script.py"))
+print(new_directory("PythonPrograms", "scripts.py"))
 
 #Q4
 
