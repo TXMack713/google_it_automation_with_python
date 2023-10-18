@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-# Google IT Automation with Python - Troubleshooting and Debugging Techniques, Intermittently Failing Script
+# Google IT Automation with Python - Troubleshooting and
+# Debugging Techniques, Intermittently Failing Script
 
 import csv
 import datetime
