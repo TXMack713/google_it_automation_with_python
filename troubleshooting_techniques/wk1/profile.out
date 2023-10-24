@@ -1,0 +1,56 @@
+# callgrind format
+version: 1
+creator: pprofile
+event: usphit :microseconds/hit
+events: hits microseconds usphit
+cmd: ./practice_quiz4.py
+fl=./practice_quiz4.py
+fn=<module>:1
+0 1 15 15
+6 1 45 45
+27 1 73 73
+cfl=./practice_quiz4.py
+cfn=binary_search:6
+calls=1 6
+27 1 254 254
+28 1 11 11
+34 1 86 86
+cfl=./practice_quiz4.py
+cfn=binary_search:6
+calls=1 6
+34 1 61 61
+35 1 9 9
+39 1 17 17
+cfl=./practice_quiz4.py
+cfn=binary_search:6
+calls=1 6
+39 1 152 152
+40 1 11 11
+47 1 28 28
+cfl=./practice_quiz4.py
+cfn=binary_search:6
+calls=1 6
+47 1 197 197
+48 1 11 11
+55 1 34 34
+cfl=./practice_quiz4.py
+cfn=binary_search:6
+calls=1 6
+55 1 205 205
+56 1 11 11
+fn=binary_search:6
+6 5 48 9
+10 5 33 6
+11 5 22 4
+12 5 24 4
+14 17 147 8
+15 16 75 4
+17 16 85 5
+18 4 19 4
+19 12 52 4
+20 3 17 5
+21 3 127 42
+22 12 65 5
+23 9 34 3
+24 9 91 10
+25 1 25 25
