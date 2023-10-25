@@ -2,17 +2,17 @@
 
 # Google IT Automation with Python
 # Troubleshooting and Debugging Techniques,
-# Fix a slow system with Python
+# Fix a slow system with Python - Qwiklabs Assessment
 
 import subprocess
 import multiprocessing
 import os
-# from concurrent import futures
 
-# src = "/data/prod/"
-# dest = "/data/prod_backup/"
-src = "/home/txmack713/Desktop/GitHub/it_automation_python/troubleshooting_techniques/wk2/"
-dest = "/home/txmack713/Desktop/GitHub/it_automation_python/troubleshooting_techniques/wk2/copy/"
+src = "/data/prod/"
+dest = "/data/prod_backup/"
+
+if not os.path.exists(dest):
+    os.mkdir(dest)
 
 
 def copy_files(source):
@@ -22,16 +22,12 @@ def copy_files(source):
 core_count = multiprocessing.cpu_count()
 
 if __name__ == '__main__':
-    # src = "/home/txmack713/Desktop/GitHub/it_automation_python/troubleshooting_techniques/wk2"
-    # dest = "/home/txmack713/Desktop/GitHub/it_automation_python/troubleshooting_techniques/wk2/copy"
-
-    directory_list = next(os.walk(src))[1]
-    full_paths = [os.path.join(src, directory) for directory in directory_list]
-    # for root, dirs, files in os.walk(src):
-    #     directories = [os.path.join(src, dir) for dir in dirs]
+    directories = []
+    for root, dirs, files in os.walk(src):
+        for file in files:
+            directories.append(os.path.join(root, file))
     with multiprocessing.Pool(processes=core_count) as pool:
-        pool.map(copy_files, full_paths)
+        pool.map(copy_files, directories)
 
     pool.join()
-    #         directory_list.append(path)
 
