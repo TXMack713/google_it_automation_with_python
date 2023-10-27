@@ -63,7 +63,12 @@ def get_same_or_newer(start_date):
     start_information = {}
     for row in reader:
         row_date = datetime.datetime.strptime(row[3], '%Y-%m-%d')
-        start_information[row_date] = row
+        start_information[row_date] = []
+        start_information[row_date].append("{} {}".format(row[0], row[1]))
+
+    # for row in reader:
+    #     row_date = datetime.datetime.strptime(row[3], '%Y-%m-%d')
+    #     start_information[row_date].append("{} {}".format(row[0], row[1]))
 
     for key in start_information.keys():
         # If this date is smaller than the one we're looking for,
@@ -82,9 +87,10 @@ def get_same_or_newer(start_date):
         # we add the employee in this row to the list of
         # employees at the minimal date.
         if key == min_date:
-            min_date_employees.append("{} {}".format(start_information[key][0], start_information[key][1]))
+            min_date_employees.append(start_information[key])
 
     return min_date, min_date_employees
+
 
 def list_newer(start_date):
     while start_date < datetime.datetime.today():
