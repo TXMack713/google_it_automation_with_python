@@ -24,8 +24,12 @@ def get_start_date():
     month = int(input('Enter a value for the month: '))
     day = int(input('Enter a value for the day: '))
     print()
+    the_date = datetime.datetime(year, month, day)
+    print("Here's the start date: " + str(the_date))
+    print()
 
-    return datetime.datetime(year, month, day)
+    # return datetime.datetime(year, month, day)
+    return the_date
 
 def get_file_lines(url):
     """Returns the lines contained in the file at the given URL"""
@@ -43,36 +47,43 @@ def get_file_lines(url):
 Here are few hints to fix this issue:
 
 Download the file only once from the URL.
-Pre-process it so that the same calculation doesn't need to be done over and over again. This can be done in two ways. You can choose any one of them:
-1. To create a dictionary with the start dates and then use the data in the dictionary instead of the complicated calculation.
+Pre-process it so that the same calculation doesn't need to be done over and over again. 
+This can be done in two ways. You can choose any one of them:
+1. To create a dictionary with the start dates and then use the data in the dictionary 
+instead of the complicated calculation.
 2. To sort the data by start_date and then go date by date.
 '''
+
+dates = {}
+
+
+def get_file_info():
+    data = get_file_lines(FILE_URL)
+    reader = csv.reader(data[1:])
+    for row in reader:
+        row_date = datetime.datetime.strptime(row[3], '%Y-%m-%d')
+        if row_date not in dates:
+            dates[row_date] = ["{} {}".format(row[0], row[1])]
+        else:
+            dates.get(row_date).append("{} {}".format(row[0], row[1]))
 
 
 def get_same_or_newer(start_date):
     """Returns the employees that started on the given date, or the closest one."""
-    data = get_file_lines(FILE_URL)
-    reader = csv.reader(data[1:])
-
     # We want all employees that started at the same date or the closest newer
     # date. To calculate that, we go through all the data and find the
     # employees that started on the smallest date that's equal or bigger than
     # the given start date.
     min_date = datetime.datetime.today()
-    min_date_employees = []
-    start_information = {}
-    for row in reader:
-        row_date = datetime.datetime.strptime(row[3], '%Y-%m-%d')
-        start_information[row_date] = []
-        start_information[row_date].append("{} {}".format(row[0], row[1]))
+    # print("Min date is: " + str(min_date))
+    # print("Start date is: " + str(start_date))
+    # print()
+    min_date_employees = ""
 
-    # for row in reader:
-    #     row_date = datetime.datetime.strptime(row[3], '%Y-%m-%d')
-    #     start_information[row_date].append("{} {}".format(row[0], row[1]))
-
-    for key in start_information.keys():
+    for key in dates.keys():
         # If this date is smaller than the one we're looking for,
         # we skip this row
+        # row_date = datetime.datetime.strptime(key, '%Y-%m-%d')
         if key < start_date:
             continue
 
@@ -81,13 +92,13 @@ def get_same_or_newer(start_date):
         # employees at the minimal date.
         if key < min_date:
             min_date = key
-            min_date_employees = []
+            min_date_employees = ""
 
         # If this date is the same as the current minimum,
         # we add the employee in this row to the list of
         # employees at the minimal date.
         if key == min_date:
-            min_date_employees.append(start_information[key])
+            min_date_employees = dates[key]
 
     return min_date, min_date_employees
 
@@ -101,6 +112,7 @@ def list_newer(start_date):
         start_date = start_date + datetime.timedelta(days=1)
 
 def main():
+    get_file_info()
     start_date = get_start_date()
     list_newer(start_date)
 
