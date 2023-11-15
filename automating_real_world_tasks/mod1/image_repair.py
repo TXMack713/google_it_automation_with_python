@@ -40,7 +40,7 @@ for root, directory, files in os.walk(orig_path):
         full_file = os.path.join(root, file)
         print("Full file: " + full_file)
         if os.path.isfile(full_file):
-            new_file = new_path + "/" + file + ".jpg"
+            new_file = new_path + "/" + file + ".jpeg"
             try:
                 with Image.open(full_file) as im:
                     im.convert("RGB").rotate(90).resize((128, 128)).save(new_file, "JPEG")
