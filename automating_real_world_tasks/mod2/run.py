@@ -8,6 +8,10 @@ import requests
 
 review_path = os.getcwd()
 
+# Walk the review feedback directory
+# Parse the feedback turn it into a python dictionary
+# Serialize the data and post it to the database
+
 for root, directory, files in os.walk(review_path):
     for file in files:
         full_file = os.path.join(root, file)
