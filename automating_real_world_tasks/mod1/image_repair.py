@@ -12,14 +12,21 @@ import shutil
 orig_path = os.getcwd()
 print(orig_path)
 
+path_array = orig_path.split("/")
+path_array.pop()
+path_array.pop()
+root_path = "/".join(path_array)
+
 if os.path.exists(orig_path+"/images"):
     os.chdir("images")
 
-os.chdir("..")
+os.chdir(root_path)
 print(os.getcwd())
 new_dir = "opt"
+opt_path = root_path + "/opt"
+
 try:
-    if os.path.exists(orig_path+"/opt"):
+    if os.path.exists(opt_path):
         os.chdir(new_dir)
     else:
         os.mkdir(new_dir)
@@ -29,9 +36,10 @@ except:
     os.chdir(new_dir)
 
 new_folder = "icons"
+icons_path = opt_path + "/icons"
 
 try:
-    if os.path.exists(orig_path + "/icons"):
+    if os.path.exists(icons_path):
         os.chdir(new_folder)
     else:
         os.mkdir(new_folder)
@@ -49,7 +57,7 @@ for root, directory, files in os.walk(orig_path):
         full_file = os.path.join(root, file)
         print("Full file: " + full_file)
         if os.path.isfile(full_file):
-            new_file = new_path + "/" + file
+            # new_file = new_path + "/" + file
             try:
                 with Image.open(full_file) as im:
                     im.convert("RGB").rotate(90).resize((128, 128)).save(full_file, "JPEG")
