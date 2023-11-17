@@ -12,14 +12,14 @@ import shutil
 orig_path = os.getcwd()
 print(orig_path)
 
-path_array = orig_path.split("/")
-path_array.pop()
-path_array.pop()
-root_path = "/".join(path_array)
-
 if os.path.exists(orig_path+"/images"):
     os.chdir("images")
 
+os.chdir("..")
+os.chdir("..")
+os.chdir("..")
+
+root_path = os.getcwd()
 os.chdir(root_path)
 print(os.getcwd())
 new_dir = "opt"
