@@ -3,11 +3,19 @@
 # Google IT Automation with Python
 # Automating Real-World Tasks with Python
 # Module 3 - Qwiklabs Assessment: Automatically Generate a PDF and sending it by E-mail
+'''
+Optional challenge
+As optional challenges, you could try some of the following functionalities:
+
+Sort the list of cars in the PDF by total sales.
+Create a pie chart for the total sales of each car made.
+Create a bar chart showing total sales for the top 10 best selling vehicles using the ReportLab Diagra library. Put the vehicle name on the X-axis and total revenue (remember, price * total sales!) along the Y-axis.
+'''
 
 import json
 import locale
 import sys
-import reports
+# import reports
 import emails
 import os
 
@@ -54,15 +62,15 @@ def process_data(data):
     else:
       yearly_sales[item["car"]["car_year"]] += item["total_sales"]
 
-  for key, value in yearly_sales:
-    if value > max_year_total:
-      max_year_total = value
+  for key in yearly_sales:
+    if yearly_sales[key] > max_year_total:
+      max_year_total = yearly_sales[key]
       max_year = key
 
   summary = [
     "The {} generated the most revenue: ${}".format(
-      format_car(max_revenue["car"]), max_revenue["revenue"]),
-    "The {} had the most sales: {}".format(format_car(max_sales["car"]), max_sales["total_sales"]),
+      format_car(max_revenue["car"]), max_revenue["revenue"]),"<br/>",
+    "The {} had the most sales: {}".format(format_car(max_sales["car"]), max_sales["total_sales"]),"<br/>",
     "The most popular year was {} with {} sales".format(max_year, max_year_total)
   ]
 
@@ -79,20 +87,24 @@ def cars_dict_to_table(car_data):
 
 def main(argv):
   """Process the JSON data and generate a full report out of it."""
+  # os.chdir("cd..")
+  print(os.getcwd())
   data = load_data("car_sales.json")
   summary = process_data(data)
   print(summary)
+  text_summary = ""
+  for item in summary:
+    text_summary += item + "<br/>"
   # TODO: turn this into a PDF report
   table_data = cars_dict_to_table(data)
-  reports.generate("/tmp/cars.pdf", "Sales summary for last month", "Sales update ", table_data)
+  reports.generate("/tmp/cars.pdf", "Sales summary for last month", text_summary, table_data)
   # TODO: send the PDF report as an email attachment
   sender = "automation@example.com" # sender was previously sender@example.com
   receiver = "{}@example.com".format(os.environ.get('USER'))
   subject = "Sales summary for last month"
   body = "Hi\n\nI'm sending an attachment with the same summary as the attached PDF."
-
-message = emails.generate(sender, receiver, subject, body, "/tmp/cars.pdf")
-emails.send(message)
+  message = emails.generate(sender, receiver, subject, body, "/tmp/cars.pdf")
+  emails.send(message)
 
 if __name__ == "__main__":
   main(sys.argv)
